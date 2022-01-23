@@ -37,7 +37,7 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         log.info(saved.toString()); //System.out.println(saved.toString());
 
-        return "articles/new";  //제출하고 다시 원래 페이지로 돌아감
+        return "redirect:/articles/" + saved.getId();  //제출하고 다시 원래 페이지로 돌아감(redirect를 사용하지 않으면 url이 바뀌지 않음(요청했던 url이 유지됨))
     }
 
     @GetMapping("/articles/{id}")  //{id}라는 변수를 지정

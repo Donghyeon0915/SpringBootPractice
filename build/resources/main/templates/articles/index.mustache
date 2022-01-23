@@ -10,14 +10,17 @@
     </thead>
 
     <tbody>
+    <!-- articleList가 여러 데이터의 묶음일 경우에는 articleList의 범위안에 있는 코드가 반복이 됨-->
     {{#articleList}}
         <tr>
             <th>{{id}}</th>
-            <td>{{title}}</td>
+            <td><a href="/articles/{{id}}">{{title}}</a></td>
             <td>{{content}}</td>
         </tr>
     {{/articleList}}
     </tbody>
 </table>
+
+<a href="/articles/new">New Article</a>
 
 {{>layout/footer}}
