@@ -89,7 +89,7 @@ public class ArticleController {
         // 2-1: DB에서 기존 데이터를 가져옴
         Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
 
-        // 2-2: 기존 데이터에 값을 갱신
+        // 2-2: 기존 데이터가 있다면 값을 갱신
         if(target != null){
             articleRepository.save(articleEntity); //엔티티가 DB로 갱신
         }

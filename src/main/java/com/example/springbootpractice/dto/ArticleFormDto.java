@@ -15,7 +15,6 @@ public class ArticleFormDto {
 
     public Article toEntity() {
         return Article.builder()
-                .id(null)
                 .id(id)
                 .title(title)
                 .content(content)
