@@ -2,18 +2,15 @@ package com.example.springbootpractice.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @ToString
 @Getter
 @NoArgsConstructor
-@Entity
+@Entity //해당 클래스로 DB 테이블을 만든다
 public class Article {
     @Id //대표값을 지정
-    @GeneratedValue //auto increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //DB가 id를 자동 생성 (auto increment)
     private Long id;
 
     @Column
