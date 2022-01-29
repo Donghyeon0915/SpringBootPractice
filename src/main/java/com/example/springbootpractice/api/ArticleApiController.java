@@ -20,24 +20,20 @@ public class ArticleApiController {
     @Autowired //DI : Dependency Injecion 외부에서 가져온다
     private ArticleService articleService;
 
-
     // GET
     @GetMapping("/api/articles")  //url과 uri의 차이 ?
-    public List<Article> index(){
-        return articleService.index();
-    }
+    public List<Article> index(){ return articleService.index(); }
 
     @GetMapping("/api/articles/{id}")
     public Article index(@PathVariable Long id){
         return articleService.show(id);
     }
 
-    // POST
+    //Post
+    /*  form에서 데이터를 던질 때는 파라미터에 추가만하면 받아와 지지만
+     * RestAPI에서 JSON으로 데이터를 던질 때에는 @RequestBody(Request의 Body에서 dto를 받아오라는 뜻)를 붙여줘야한다.
+     */
     @PostMapping("/api/articles")
-
-   /*  form에서 데이터를 던질 때는 파라미터에 추가만하면 받아와 지지만
-    * RestAPI에서 JSON으로 데이터를 던질 때에는 @RequestBody(Request의 Body에서 dto를 받아오라는 뜻)를 붙여줘야한다.
-    */
     public ResponseEntity<Article> create(@RequestBody ArticleFormDto requestDto){
         Article created = articleService.create(requestDto);
 

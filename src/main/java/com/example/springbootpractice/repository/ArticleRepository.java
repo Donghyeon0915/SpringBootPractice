@@ -9,5 +9,5 @@ import java.util.ArrayList;
 //<관리 대상 Entity, Entity의 Id 타입>
 public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Override
-    ArrayList<Article> findAll();
+    ArrayList<Article> findAll(); //반환 타입을 바꾸기위해서 오버라이드
 }
