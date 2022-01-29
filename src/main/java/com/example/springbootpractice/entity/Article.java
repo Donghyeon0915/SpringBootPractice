@@ -27,6 +27,10 @@ public class Article {
     }
 
     public void patch(Article article){
+        /*
+         * 사용자가 입력을 하지않았으면 null이 들어오므로
+         * 값이 있다는 것은 수정을 했다는 뜻
+         */
         if(article.title != null) this.title = article.getTitle();
         if(article.content != null) this.content = article.getContent();
     }

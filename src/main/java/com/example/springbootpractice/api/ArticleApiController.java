@@ -18,9 +18,9 @@ public class ArticleApiController {
 
     @Autowired //DI : Dependency Injecion 외부에서 가져온다
     private ArticleRepository articleRepository;
+
     // GET
-    //url과 uri의 차이 ?
-    @GetMapping("/api/articles")
+    @GetMapping("/api/articles")  //url과 uri의 차이 ?
     public List<Article> index(){
         return articleRepository.findAll();
     }
@@ -36,7 +36,7 @@ public class ArticleApiController {
     * form에서 데이터를 던질 때는 파라미터에 추가만하면 받아와 지지만
     * RestAPI에서 JSON으로 데이터를 던질 때에는 @RequestBody(Request의 Body에서 dto를 받아오라는 뜻)를 붙여줘야한다.
     * */
-    public Article create(@RequestBody ArticleFormDto requestDto){
+    public Article create(ArticleFormDto requestDto){
         Article article = requestDto.toEntity();
         return articleRepository.save(article);
     }
@@ -50,17 +50,17 @@ public class ArticleApiController {
         Article article = requestDto.toEntity();
         log.info("id : {}, article : {}", id, article.toString());
 
-        // 2ㅣ 대상 엔티티 조회
+        // 2: 대상 엔티티 조회
         Article target = articleRepository.findById(id).orElse(null);
 
         // 3: 잘못된 요청 처리(대상이 없거나, id가 다른 경우
-
         if(target == null || id != article.getId()){
-            //400, 잘못된 요청 응답
             log.info("잘못된 요청 id : {}, article : {}", id, article.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //400, 잘못된 요청 응답
         }
-        target.patch(article);
+        target.patch(article); //바뀐 부분만 target에 적용
+        
         // 4: 업데이트 및 정상 응답(200)
         Article updated = articleRepository.save(target);
 
