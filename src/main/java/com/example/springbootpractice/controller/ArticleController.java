@@ -21,6 +21,7 @@ public class ArticleController {
     @Autowired  //스프링 부트가 미리 생성해놓은 객체를 가져다가 연결
     private ArticleRepository articleRepository;
 
+
     @GetMapping("/articles/new")    //게시글 생성 페이지로 이동
     public String newArticleForm(){
         return "articles/new"; //templates를 기준으로 articles/new.mustache

@@ -30,7 +30,7 @@ public class ArticleService {
     public Article create(ArticleFormDto requestDto) {
         Article article = requestDto.toEntity();
 
-        //요청으로 들어온 id 값이 DB에 있다면
+        //게시글 등록 요청에 id 값이 같이 들어온 경우(id 값은 DB가 자동으로 생성하므로 사용자가 입력할 필요가 없음)
         if(article.getId() != null) return null; 
         
         return articleRepository.save(article);
@@ -71,17 +71,13 @@ public class ArticleService {
     @Transactional //해당 메소드를 트랜잭션으로 묶는다 (실패하면 메소드가 실행되기 전으로 롤백)
     public List<Article> createArticles(List<ArticleFormDto> requestDtos) {
         // dto 묶음을 entity 묶음으로 변환
-        List<Article> articleList = requestDtos.stream().
-                map(dto -> dto.toEntity())
-                .collect(Collectors.toList());
+        List<Article> articleList = requestDtos.stream().map(dto -> dto.toEntity()).collect(Collectors.toList());
 
         // entity 묶음을 DB로 저장
-        articleList.stream()
-                .forEach(article -> articleRepository.save(article));
+        articleList.stream().forEach(article -> articleRepository.save(article));
 
         // 강제 예외 발생
-        articleRepository.findById(-1L).orElseThrow(
-                () -> new IllegalArgumentException("결재 실패 !"));
+        articleRepository.findById(-1L).orElseThrow(() -> new IllegalArgumentException("결재 실패 !"));
 
         // 결과값 반환
         return articleList;
