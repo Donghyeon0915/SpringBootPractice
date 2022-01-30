@@ -39,7 +39,11 @@ class ArticleServiceTest {
     void show_success_input_existId() {
         // 예상
         Long id = 1L;
-        Article expected = new Article(id, "가가가가", "1111");
+        Article expected = Article.builder()
+                .id(id)
+                .title("가가가가")
+                .content("1111")
+                .build();
 
         // 실제
         Article article = articleService.show(id);
@@ -65,14 +69,18 @@ class ArticleServiceTest {
         // 예상
         String title = "라라라라";
         String content = "4444";
-        ArticleFormDto requestDto = new ArticleFormDto(null, title, content);
+        ArticleFormDto requestDto = ArticleFormDto.builder()
+                .id(null)
+                .title(title)
+                .content(content)
+                .build();
+
         Article expected = new Article(4L, title, content);
 
         // 실제
         Article article = articleService.create(requestDto);
         // 비교
         assertEquals(expected.toString(), article.toString()); //null은 toString()을 호출할 수 없으므로 지워줌
-
     }
 
     @Test // id가 포함된 Dto를 요청으로 받았을 때
@@ -80,7 +88,11 @@ class ArticleServiceTest {
         // 예상
         String title = "라라라라";
         String content = "4444";
-        ArticleFormDto requestDto = new ArticleFormDto(4L, title, content);
+        ArticleFormDto requestDto = ArticleFormDto.builder()
+                .id(4L)
+                .title(title)
+                .content(content)
+                .build();
 
         Article expected = null;
 
@@ -97,7 +109,11 @@ class ArticleServiceTest {
         Long id = 1L;
         String title = "updated_title";
         String content = "updated_content";
-        ArticleFormDto requestDto = new ArticleFormDto(id,title,content);
+        ArticleFormDto requestDto = ArticleFormDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .build();
 
         Article expected = requestDto.toEntity();
 
@@ -115,7 +131,12 @@ class ArticleServiceTest {
         String title = "updated_title";
         String content = null;
 
-        ArticleFormDto requestDto = new ArticleFormDto(id, title, content);
+        ArticleFormDto requestDto =  ArticleFormDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .build();
+
         Article expected = articleService.show(id);
         expected.patch(requestDto.toEntity());
 
@@ -132,7 +153,11 @@ class ArticleServiceTest {
         // 예상
         String title = "updated_title";
         String content = "updated_content";
-        ArticleFormDto requestDto = new ArticleFormDto(4L, title, content);
+        ArticleFormDto requestDto =  ArticleFormDto.builder()
+                .id(4L)
+                .title(title)
+                .content(content)
+                .build();
 
         Article expected = null;
 
@@ -151,7 +176,11 @@ class ArticleServiceTest {
         Long id = 1L;
         String title = null;
         String content = null;
-        ArticleFormDto requestDto = new ArticleFormDto(id, title, content);
+        ArticleFormDto requestDto =  ArticleFormDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .build();
 
         Article expected = articleService.show(id);
 
