@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+
+    <!-- name : CommentRepository의 findByNickname 메소드가 쿼리를 수행하도록 지정 -->
+    <!-- result-class : 반환되는 데이터의 타입을 지정 -->
+    <named-native-query
+            name="Comment.findByNickname"
+            result-class="com.example.springbootpractice.entity.Comment">
+
+        <query>
+            <![CDATA[SELECT * FROM comment WHERE nickname = :nickname]]>
+        </query>
+
+    </named-native-query>
+ </entity-mappings>
+
