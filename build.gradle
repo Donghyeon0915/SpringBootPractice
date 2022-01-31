@@ -22,6 +22,7 @@ dependencies {
     /* lomdirok */
     compileOnly('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
 
 }
 
