@@ -105,7 +105,7 @@ class ArticleServiceTest {
     @Transactional
     @Test //존재하는 id와 title,content가 있는 dto 입력
     void update_success_1() {
-        // 예상
+        // 준비
         Long id = 1L;
         String title = "updated_title";
         String content = "updated_content";
@@ -115,6 +115,7 @@ class ArticleServiceTest {
                 .content(content)
                 .build();
 
+        // 예상
         Article expected = requestDto.toEntity();
 
         // 실제
@@ -126,9 +127,9 @@ class ArticleServiceTest {
     @Transactional
     @Test //존재하는 id와 title만 있는 dto 입력
     void update_success_2(){
-        // 예상
+        // 준비
         Long id = 1L;
-        String title = "updated_title";
+        String title = "가가가가";
         String content = null;
 
         ArticleFormDto requestDto =  ArticleFormDto.builder()
@@ -137,8 +138,8 @@ class ArticleServiceTest {
                 .content(content)
                 .build();
 
-        Article expected = articleService.show(id);
-        expected.patch(requestDto.toEntity());
+        // 예상 (업데이트 후의 예상 값을 지정)
+        Article expected = new Article(id, title, "1111");
 
         // 실제
         Article article = articleService.update(id, requestDto);
