@@ -1,6 +1,7 @@
 package com.example.springbootpractice.entity;
 
 
+import com.example.springbootpractice.dto.CommentDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +27,33 @@ public class Comment {
 
     @Column
     private String body;
+
+    public static Comment createComment(CommentDto requestDto, Article article){
+        //댓글 생성 시엔 id를 입력받지 않아야함(DB가 자동 생성해야 하므로)
+        if(requestDto.getId() != null) throw new IllegalArgumentException("댓글 생성 실패 : 댓글의 아이디가 없어야합니다.");
+
+        //URL의 article_id와 요청으로 들어온 JSON 데이터의 article_id가 다르면 에러
+        if(requestDto.getArticleId() != article.getId())
+            throw new IllegalArgumentException("댓글 생성 실패 : 게시글의 아이디가 잘못되었습니다.");
+
+        //엔티티 생성 및 반환
+        return Comment.builder()
+                .id(requestDto.getId())
+                .article(article)
+                .nickname(requestDto.getNickname())
+                .body(requestDto.getBody())
+                .build();
+    }
+
+    public void patch(CommentDto requestDto) {
+        // 예외 발생
+        if(this.id != requestDto.getId())
+            throw new IllegalArgumentException("댓글 수정 실패 : 잘못된 아이디가 입력되었습니다.");
+
+        // 객체를 갱신
+        if(requestDto.getNickname() != null)
+            this.nickname = requestDto.getNickname();
+        if(requestDto.getBody() != null)
+            this.body = requestDto.getBody();
+    }
 }
