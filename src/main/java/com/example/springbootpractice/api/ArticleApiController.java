@@ -2,9 +2,12 @@ package com.example.springbootpractice.api;
 
 
 import com.example.springbootpractice.dto.ArticleFormDto;
+import com.example.springbootpractice.dto.CommentDto;
 import com.example.springbootpractice.entity.Article;
+import com.example.springbootpractice.entity.Comment;
 import com.example.springbootpractice.repository.ArticleRepository;
 import com.example.springbootpractice.service.ArticleService;
+import com.example.springbootpractice.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class ArticleApiController {
 
     @Autowired //DI : Dependency Injecion 외부에서 가져온다
     private ArticleService articleService;
+
+    @Autowired
+    private CommentService commentService;
 
     // GET
     @GetMapping("/api/articles")  //url과 uri의 차이 ?

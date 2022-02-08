@@ -5,6 +5,7 @@ import com.example.springbootpractice.entity.Article;
 import com.example.springbootpractice.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
