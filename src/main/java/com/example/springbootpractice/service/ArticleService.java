@@ -1,8 +1,11 @@
 package com.example.springbootpractice.service;
 
 import com.example.springbootpractice.dto.ArticleFormDto;
+import com.example.springbootpractice.dto.CommentDto;
 import com.example.springbootpractice.entity.Article;
+import com.example.springbootpractice.entity.Comment;
 import com.example.springbootpractice.repository.ArticleRepository;
+import com.example.springbootpractice.repository.CommentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,6 +21,9 @@ public class ArticleService {
 
     @Autowired //DI : Dependency Injection
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     public List<Article> index(){
         return articleRepository.findAll();
@@ -60,7 +66,12 @@ public class ArticleService {
 
     public Article delete(Long id) {
         Article target = articleRepository.findById(id).orElse(null);
+        List<CommentDto> comments = commentService.comments(id);
 
+        if(comments != null) comments.forEach(comment -> {
+            log.info(comment.toString());
+            commentService.delete(comment.getId());
+        });
         if(target == null) return null;
 
         articleRepository.delete(target);

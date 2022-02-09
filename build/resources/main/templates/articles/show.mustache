@@ -23,9 +23,30 @@
 
 <a href="/articles/{{article.id}}/edit" class = "btn btn-primary">Edit</a>
 <a href="/articles/{{article.id}}/delete" class = "btn btn-danger">Delete</a>
+<button class ="btn btn-danger" id = "deleteBtn" value = {{article.id}}>Delete</button>
 <a href="/articles">Go to Article list</a>
 
 
+<script>
+    {
+        const deleteBtn = document.querySelector("#deleteBtn");
+
+        //"/api/articles/{id}"
+        deleteBtn.addEventListener("click", () =>{
+            const articleId = deleteBtn.getAttribute("value");
+            const url = "/api/articles/" + articleId;
+
+            fetch(url,{
+                method: "DELETE"
+            }).then(response =>{
+               const msg = (response.ok) ? "게시글이 삭제되었습니다." : "게시글 삭제 실패";
+               alert(msg);
+
+               window.location.href = '/articles';
+            });
+        });
+    }
+</script>
 {{>comments/_comment}}
 
 {{>layout/footer}}

@@ -5,6 +5,7 @@ import com.example.springbootpractice.dto.CommentDto;
 import com.example.springbootpractice.entity.Article;
 import com.example.springbootpractice.entity.Comment;
 import com.example.springbootpractice.repository.ArticleRepository;
+import com.example.springbootpractice.service.ArticleService;
 import com.example.springbootpractice.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.util.List;
 public class ArticleController {
     @Autowired  //스프링 부트가 미리 생성해놓은 객체를 가져다가 연결
     private ArticleRepository articleRepository;
+    @Autowired
+    private ArticleService articleService;
     @Autowired
     private CommentService commentService;
 
