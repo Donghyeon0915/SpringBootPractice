@@ -1,10 +1,9 @@
 package com.example.springbootpractice.api;
 
 
+import com.example.springbootpractice.annotation.RunningTime;
 import com.example.springbootpractice.dto.CommentDto;
-import com.example.springbootpractice.entity.Comment;
 import com.example.springbootpractice.service.CommentService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +40,7 @@ public class CommentApiController {
 
     // 댓글 수정
     @PatchMapping("/api/comments/{id}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long id, @RequestBody CommentDto requestDto){
+    public ResponseEntity<CommentDto> deleteComment(@PathVariable Long id, @RequestBody CommentDto requestDto){
         // 서비스에게 수정 요청
         CommentDto updatedDto = commentService.update(id, requestDto);
 
@@ -49,8 +48,9 @@ public class CommentApiController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedDto);
     }
     // 댓글 삭제
+    @RunningTime
     @DeleteMapping("/api/comments/{id}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long id){
+    public ResponseEntity<CommentDto> deleteComment(@PathVariable Long id){
         // 서비스에게 수정 요청
         CommentDto deletedDto = commentService.delete(id);
 

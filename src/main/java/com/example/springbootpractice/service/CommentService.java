@@ -5,6 +5,7 @@ import com.example.springbootpractice.entity.Article;
 import com.example.springbootpractice.entity.Comment;
 import com.example.springbootpractice.repository.ArticleRepository;
 import com.example.springbootpractice.repository.CommentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class CommentService {
     
@@ -45,6 +47,7 @@ public class CommentService {
 
     @Transactional // DB의 내용이 변경 될 수 있으므로 트랜잭션을 붙여주어 문제가 없을 경우에만 반영하도록 함
     public CommentDto create(Long article_id, CommentDto requestDto){
+
         // 게시글 조회 및 예외 발생
         Article article = articleRepository.findById(article_id)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패 : 대상 게시글이 없습니다. id = " + article_id));
@@ -59,8 +62,7 @@ public class CommentService {
         Comment created = commentRepository.save(comment);
 
         // Dto로 변경하여 반환
-        return CommentDto.createCommentDto(created);
-        //return new CommentDto(created);
+         return CommentDto.createCommentDto(created);
     }
 
     @Transactional //데이터를 건드리므로 @Transactinal 추가
